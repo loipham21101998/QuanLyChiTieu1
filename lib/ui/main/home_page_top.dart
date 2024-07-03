@@ -2,19 +2,24 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+
+List<String> items = ['Hàng tháng', 'Theo quý', 'Năm nay'];
 
 class HomePage extends StatelessWidget {
   final Widget body;
-  const HomePage({super.key ,required this.body});
+
+  const HomePage({super.key, required this.body});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const DropdownTop(),
         Row(
           children: [
             Container(
@@ -42,7 +47,6 @@ class HomePage extends StatelessWidget {
         ),
         _buildTop(),
         body,
-        _buildBody(context)
       ],
     );
   }
@@ -57,7 +61,7 @@ class HomePage extends StatelessWidget {
         color: Colors.white,
       ),
       child: const Padding(
-        padding: EdgeInsets.only(top:19,bottom: 19,left: 19,right: 20),
+        padding: EdgeInsets.only(top: 19, bottom: 19, left: 19, right: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,62 +112,52 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildBody(BuildContext context) {
-    return Expanded(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 11).copyWith(top:8),
-         decoration: BoxDecoration(
-         borderRadius: BorderRadius.circular(20),
-         color: Colors.white,),
-          child: GridView.count(
-            crossAxisCount: 2,
-            childAspectRatio: 1.45794392523,
-            controller: ScrollController(keepScrollOffset: false),
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            padding: const EdgeInsets.only(top:20,right: 20,left: 20),
-            crossAxisSpacing: 18,
-            children: List.generate(2,(int i) {
-              return Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color:const Color(0xff14D210),width: 2)
-                ),
-                child:  Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Row(
-                        children: [
-                          CircleAvatar(),
-                          Spacer(),
-                          Text('Ăn uống',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)
-                        ],
-                      ),
-                      const Spacer(),
-                      Row(
-                        children: [
-                          const Text('50%',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                          const Spacer(),
-                          Column(
-                            children: [
-                              Container(height: 6,),
-                              const Text('-1.000.000 VND',style: TextStyle(fontSize: 10),)
-                            ],
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              );
-            }),
-          )
-    ));
+class DropdownTop extends StatefulWidget {
+  const DropdownTop({super.key});
+
+  @override
+  State<DropdownTop> createState() => _DropdownTopState();
+}
+
+class _DropdownTopState extends State<DropdownTop> {
+  String dropdownValue = items.first;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 150,
+      height: 30,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20)
+      ),
+      margin: const EdgeInsets.only(left: 11,bottom: 10),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 19,right: 16),
+        child: DropdownButton<String>(
+          value: dropdownValue,
+          isExpanded: true,
+          iconSize: 30,
+          onChanged: (String? value) {
+            setState(() {
+              dropdownValue = value!;
+            });
+          },
+          underline: Container(
+            height: 2,
+            color: Colors.transparent,
+          ),
+          items: items.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+        ),
+      ),
+     
+    );
   }
-
 }

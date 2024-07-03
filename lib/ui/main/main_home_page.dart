@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quanlychitieu/ui/main/home_page_child_NKCT.dart';
+import 'package:quanlychitieu/ui/main/home_page_child_TC.dart';
 
 import '../../ultils/enums/main_page.dart';
-import 'home_page.dart';
+import 'home_page_top.dart';
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({super.key});
@@ -20,11 +23,8 @@ class _MainHomePageState extends State<MainHomePage> {
     // TODO: implement initState
     super.initState();
     _pages = [
-      const HomePage(key : ValueKey(1)),
-      Container(
-        key:const ValueKey(2),
-        color: Colors.green,
-      ),
+      const HomePage(key : ValueKey(1),body:HomePageChildTc()),
+      const HomePage(key: ValueKey(2),body: HomePageChildNkct()),
       Container(
        key:  const ValueKey(3),
         color: Colors.yellow,
