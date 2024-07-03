@@ -1,6 +1,6 @@
 {
-  "appbar_homepage" : "Trang Chủ",
-  "appbar_details" : "Nhật Ký Chi Tiêu",
+  "appbar_homepage" : "Home",
+  "appbar_details" : "History",
   "appbar_Statistical" : "Thống Kê",
   "appbar_settings" : "Cài Đặt",
   "appbar_select_type" : "Chọn Loại Chi Tiêu",
