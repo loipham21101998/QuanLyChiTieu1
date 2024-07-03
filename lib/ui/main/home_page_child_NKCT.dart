@@ -8,8 +8,11 @@ class HomePageChildNkct extends StatelessWidget {
     return Expanded(
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 11).copyWith(top:8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
             color: Colors.white,),
             child: ListView.separated(
             //padding: const EdgeInsets.all(14),
