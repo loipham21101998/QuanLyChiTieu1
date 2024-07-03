@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:quanlychitieu/ui/main/home_page_child_NKCT.dart';
 import 'package:quanlychitieu/ui/main/home_page_child_TC.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:quanlychitieu/ui/main/page_ChonLoaiCT.dart';
 import '../../ultils/enums/main_page.dart';
 import 'home_page_CD.dart';
 import 'home_page_TK.dart';
@@ -27,10 +28,7 @@ class _MainHomePageState extends State<MainHomePage> {
     _pages = [
       const HomePage(key: ValueKey(1), body: HomePageChildTc()),
       const HomePage(key: ValueKey(2), body: HomePageChildNkct()),
-      Container(
-        key: const ValueKey(3),
-        color: Colors.yellow,
-      ),
+      //const PageChonLoaiCt(key: ValueKey(3)),
       const HomePageTk(key: ValueKey(4)),
       const HomePageCd(key: ValueKey(5))
     ];
@@ -93,7 +91,17 @@ class _MainHomePageState extends State<MainHomePage> {
             color: const Color(0xff0C7209),
             borderRadius: BorderRadius.circular(70 / 2)),
         child: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            // setState(() {
+            //   _currentPage = 2;
+            //   _mainPage = MainPage.values[_currentPage];
+            // });
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context)=> const PageChonLoaiCt())
+            );
+          },
           icon: const Icon(
             Icons.add,
             size: 50,
