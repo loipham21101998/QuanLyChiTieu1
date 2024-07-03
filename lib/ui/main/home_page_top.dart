@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final Widget body;
+  const HomePage({super.key ,required this.body});
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
         _buildTop(),
+        body,
         _buildBody(context)
       ],
     );
