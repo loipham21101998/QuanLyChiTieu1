@@ -4,6 +4,8 @@ import 'package:quanlychitieu/ui/main/home_page_child_NKCT.dart';
 import 'package:quanlychitieu/ui/main/home_page_child_TC.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../ultils/enums/main_page.dart';
+import 'home_page_CD.dart';
+import 'home_page_TK.dart';
 import 'home_page_top.dart';
 
 class MainHomePage extends StatefulWidget {
@@ -29,14 +31,8 @@ class _MainHomePageState extends State<MainHomePage> {
         key: const ValueKey(3),
         color: Colors.yellow,
       ),
-      Container(
-        key: const ValueKey(4),
-        color: Colors.blue,
-      ),
-      Container(
-        key: const ValueKey(5),
-        color: Colors.purple,
-      )
+      const HomePageTk(key: ValueKey(4)),
+      const HomePageCd(key: ValueKey(5))
     ];
   }
 
