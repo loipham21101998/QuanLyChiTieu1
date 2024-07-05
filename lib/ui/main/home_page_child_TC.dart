@@ -26,7 +26,8 @@ class HomePageChildTc extends StatelessWidget {
               scrollDirection: Axis.vertical,
               padding: const EdgeInsets.only(top:20,right: 20,left: 20),
               crossAxisSpacing: 18,
-              children: List.generate(2,(int i) {
+              mainAxisSpacing: 7,
+              children: List.generate(3,(int i) {
                 return Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),

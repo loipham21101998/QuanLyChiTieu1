@@ -8,6 +8,8 @@ import 'home_page_CD.dart';
 import 'home_page_TK.dart';
 import 'home_page_top.dart';
 
+final List<String> langs = ['vi', 'en'];
+
 class MainHomePage extends StatefulWidget {
   const MainHomePage({super.key});
 
@@ -106,8 +108,6 @@ class _MainHomePageState extends State<MainHomePage> {
   }
 }
 
-final List<String> langs = ['vi', 'en'];
-
 class DropdownLang extends StatefulWidget {
   BuildContext contextMain;
   DropdownLang({super.key ,required this.contextMain});
@@ -131,6 +131,7 @@ class _DropdownLangState extends State<DropdownLang> {
     return Container(
       margin: const EdgeInsets.only(right: 14.5),
       child: DropdownButton<String>(
+        dropdownColor: Colors.white,
         value: dropdownValue,
         iconSize: 0,
         icon:
