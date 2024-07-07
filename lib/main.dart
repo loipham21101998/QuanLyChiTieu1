@@ -8,12 +8,20 @@ import 'package:quanlychitieu/entities/static_variable.dart';
 import 'package:quanlychitieu/ui/main/main_home_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quanlychitieu/ultils/enums/color_extension.dart';
+import 'package:realm/realm.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'entities/danhmuc_chitieu.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   readLocalSetting();
+  if(await _isFirstStart()){
+    createDefaultCategory();
+  }
+
 
   runApp(EasyLocalization(
       supportedLocales: const [Locale("vi"), Locale("en")],
@@ -28,6 +36,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'QuanLyChiTieu',
+      routes: {
+        '/home': (context) => const MainHomePage()
+      },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -58,7 +69,7 @@ Future<bool> checkFileExists() async {
   return file.exists();
 }
 
-Future<void> readLocalSetting() async{
+Future<void> readLocalSetting() async {
   bool check = await checkFileExists();
   if(check){
     final file = await _localFile;
@@ -73,5 +84,33 @@ Future<void> readLocalSetting() async{
     String json = jsonEncode(Settings.origin());
     file.writeAsStringSync(json);
   }
+
+}
+
+Future<bool> _isFirstStart() async {
+  try {
+    // Obtain shared preferences.
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final result = prefs.getBool('firstRun');
+    return result ?? false;
+  } catch (e) {
+    return false;
+  }
+}
+
+Future<void> createDefaultCategory() async{
+var config = Configuration.local([DanhMucChitieu.schema]);
+var realm = Realm(config);
+
+var categories = {
+    DanhMucChitieu(ObjectId(),'Ăn uống',Icons.food_bank_outlined.codePoint.toString(),Colors.white.toHex()),
+    DanhMucChitieu(ObjectId(),'Tiền điện',Icons.electric_bolt_outlined.codePoint.toString(),Colors.white.toHex()),
+    DanhMucChitieu(ObjectId(),'Du lịch',Icons.travel_explore.codePoint.toString(),Colors.white.toHex()),
+};
+
+await realm.writeAsync(() => realm.addAll(categories));
+SharedPreferences.getInstance().then((o)=>o.setBool('firstRun', false));
+
+//print('=========================== Thu muc Realm : ${Configuration.defaultRealmPath} ===================================');
 
 }

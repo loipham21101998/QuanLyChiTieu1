@@ -19,7 +19,7 @@ extension MainPageExtension on MainPage{
       case MainPage.ChonLoai:
         return 'appbar_select_type'.tr();
       case MainPage.TaoChiTieu:
-        return 'Tạo Chi Tiêu'.tr();
+        return 'appbar_create_spending'.tr();
     }
   }
 }

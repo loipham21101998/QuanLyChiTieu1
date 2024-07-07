@@ -1,11 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:quanlychitieu/entities/danhmuc_chitieu.dart';
 import 'package:quanlychitieu/ui/main/page_TaoCT.dart';
+import 'package:realm/realm.dart';
 
+import '../../ultils/enums/color_extension.dart';
 import '../../ultils/enums/main_page.dart';
 import 'main_home_page.dart';
 
-class PageChonLoaiCt extends StatelessWidget {
+class PageChonLoaiCt extends StatefulWidget {
   const PageChonLoaiCt({super.key});
+
+
+
+  @override
+  State<PageChonLoaiCt> createState() => _PageChonLoaiCtState();
+}
+
+class _PageChonLoaiCtState extends State<PageChonLoaiCt> {
+
+  late RealmResults<DanhMucChitieu> categories;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    var config = Configuration.local([DanhMucChitieu.schema]);
+    var realm = Realm(config);
+
+    categories = realm.all<DanhMucChitieu>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +64,8 @@ class PageChonLoaiCt extends StatelessWidget {
                 childAspectRatio: 0.7538461538461538,
                 mainAxisSpacing: 10,
                 crossAxisCount: 3,
-                children: [
-                  _column(context, 'Ăn uống'),
-                  _column(context, 'Giải trí'),
-                  _column(context, 'Du lịch'),
-                  _column(context, 'Tiền điện'),
-                ],
+                children: categories.map((e) => _column(context,e.Ten,IconData(int.parse(e.icon), fontFamily: 'MaterialIcons') , HexColor(e.iconColor))).toList()
+                ,
               ),
             ),
             InkWell(
@@ -72,15 +91,17 @@ class PageChonLoaiCt extends StatelessWidget {
     );
   }
 
-  Widget _column(BuildContext context, String name) {
+  Widget _column(BuildContext context, String name,IconData icon,Color iconColor) {
     return InkWell(
       onTap: () {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => PageTaoCt(loaiCT: name)));
       },
       child: Column(children: [
-        const CircleAvatar(
+          CircleAvatar(
+            backgroundColor: Colors.purpleAccent,
           radius: 49,
+          child: Icon(icon , color: iconColor,size: 35,),
         ),
         Container(
           margin: const EdgeInsets.only(top: 10),

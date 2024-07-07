@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quanlychitieu/entities/static_variable.dart';
 import 'package:quanlychitieu/ui/main/home_page_child_NKCT.dart';
 import 'package:quanlychitieu/ui/main/home_page_child_TC.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -27,10 +28,11 @@ class _MainHomePageState extends State<MainHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    //context.setLocale(Locale(public_Enum.language));
     _pages = [
       const HomePage(key: ValueKey(1), body: HomePageChildTc()),
       const HomePage(key: ValueKey(2), body: HomePageChildNkct()),
-      //const PageChonLoaiCt(key: ValueKey(3)),
+      const PageChonLoaiCt(key: ValueKey(3)),
       const HomePageTk(key: ValueKey(4)),
       const HomePageCd(key: ValueKey(5))
     ];

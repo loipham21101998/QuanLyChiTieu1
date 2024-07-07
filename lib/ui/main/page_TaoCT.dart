@@ -177,8 +177,9 @@ class PageTaoCt extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MainHomePage()));
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => MainHomePage()));
+                Navigator.popUntil(context,ModalRoute.withName('/') );
               },
               child: Container(
                 width: 333,
@@ -198,10 +199,7 @@ class PageTaoCt extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const MainHomePage()));
+                Navigator.popUntil(context,ModalRoute.withName('/') );
               },
               child: Container(
                 width: 333,
