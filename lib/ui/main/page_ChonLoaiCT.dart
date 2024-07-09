@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quanlychitieu/entities/danhmuc_chitieu.dart';
+import 'package:quanlychitieu/entities/danhmucchitieu/danhmuc_chitieu.dart';
 import 'package:quanlychitieu/ui/main/page_TaoCT.dart';
 import 'package:realm/realm.dart';
 
@@ -64,7 +64,7 @@ class _PageChonLoaiCtState extends State<PageChonLoaiCt> {
                 childAspectRatio: 0.7538461538461538,
                 mainAxisSpacing: 10,
                 crossAxisCount: 3,
-                children: categories.map((e) => _column(context,e.Ten,IconData(int.parse(e.icon), fontFamily: 'MaterialIcons') , HexColor(e.iconColor))).toList()
+                children: categories.map((e) => _column(context,e.id.toString(),e.Ten,IconData(int.parse(e.icon), fontFamily: 'MaterialIcons') , HexColor(e.iconColor))).toList()
                 ,
               ),
             ),
@@ -91,11 +91,11 @@ class _PageChonLoaiCtState extends State<PageChonLoaiCt> {
     );
   }
 
-  Widget _column(BuildContext context, String name,IconData icon,Color iconColor) {
+  Widget _column(BuildContext context, String id ,String name,IconData icon,Color iconColor) {
     return InkWell(
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => PageTaoCt(loaiCT: name)));
+            MaterialPageRoute(builder: (context) => PageTaoCt(loaiCT: name,dmID: id,)));
       },
       child: Column(children: [
           CircleAvatar(

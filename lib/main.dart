@@ -10,15 +10,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quanlychitieu/ultils/enums/color_extension.dart';
 import 'package:realm/realm.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'entities/danhmuc_chitieu.dart';
+import 'entities/danhmucchitieu/danhmuc_chitieu.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   readLocalSetting();
-  if(await _isFirstStart()){
+  if(!await _isFirstStart()){
     createDefaultCategory();
   }
 
@@ -106,10 +105,11 @@ var categories = {
     DanhMucChitieu(ObjectId(),'Ăn uống',Icons.food_bank_outlined.codePoint.toString(),Colors.white.toHex()),
     DanhMucChitieu(ObjectId(),'Tiền điện',Icons.electric_bolt_outlined.codePoint.toString(),Colors.white.toHex()),
     DanhMucChitieu(ObjectId(),'Du lịch',Icons.travel_explore.codePoint.toString(),Colors.white.toHex()),
+    DanhMucChitieu(ObjectId(),'Chi phí di chuyển',Icons.travel_explore.codePoint.toString(),Colors.white.toHex()),
 };
 
 await realm.writeAsync(() => realm.addAll(categories));
-SharedPreferences.getInstance().then((o)=>o.setBool('firstRun', false));
+SharedPreferences.getInstance().then((o)=>o.setBool('firstRun', true));
 
 //print('=========================== Thu muc Realm : ${Configuration.defaultRealmPath} ===================================');
 
