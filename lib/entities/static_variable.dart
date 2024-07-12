@@ -6,4 +6,5 @@ class public_Enum{
   static Color colorMainBackground = const Color(0xff14D210);
   static String language = 'vi';
   static String donvi = 'VND';
+  static double hanmuc = 10000000;
 }

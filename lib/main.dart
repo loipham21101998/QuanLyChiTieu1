@@ -78,6 +78,7 @@ Future<void> readLocalSetting() async {
     public_Enum.colorMainBackground = s.MauSac;
     public_Enum.donvi = s.DonViTienTe;
     public_Enum.language = s.NgonNgu;
+    public_Enum.hanmuc = s.HanMuc;
   }else{
     final file = await _localFile;
     String json = jsonEncode(Settings.origin());

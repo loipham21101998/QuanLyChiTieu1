@@ -4,17 +4,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-
+import 'package:quanlychitieu/controllers/chitieu_controller.dart';
+import 'package:intl/intl.dart';
+import 'package:quanlychitieu/entities/static_variable.dart';
 List<String> items = ['Hàng tháng', 'Theo quý', 'Năm nay'];
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   final Widget body;
 
   const HomePage({super.key, required this.body});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  double? total;
+  final oCcy = NumberFormat("#,##0", "vi_VN");
+  bool _isLoading = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    LoadData();
+  }
+
+  Future<void> LoadData() async{
+    var data = await ChitieuController().LoadAll();
+    setState(() {
+      total = data.$2;
+      _isLoading = false;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
+    return !_isLoading ?
+      Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,9 +61,9 @@ class HomePage extends StatelessWidget {
             const Spacer(),
             Container(
               margin: const EdgeInsets.only(right: 28),
-              child: const Text(
-                '100.000.000 VND ',
-                style: TextStyle(
+              child: Text(
+                '${oCcy.format(public_Enum.hanmuc)} VND ',
+                style: const TextStyle(
                     fontSize: 15,
                     color: Color(0xff0C7209),
                     fontWeight: FontWeight.bold),
@@ -46,9 +72,10 @@ class HomePage extends StatelessWidget {
           ],
         ),
         _buildTop(),
-        body,
+        widget.body,
       ],
-    );
+    ) :
+        const Center(child: CircularProgressIndicator(),);
   }
 
   Widget _buildTop() {
@@ -60,47 +87,47 @@ class HomePage extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
       ),
-      child: const Padding(
-        padding: EdgeInsets.only(top: 19, bottom: 19, left: 19, right: 20),
+      child:  Padding(
+        padding: const EdgeInsets.only(top: 19, bottom: 19, left: 19, right: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
               children: [
-                Text(
+                const Text(
                   'Đã chi tiêu:',
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
-                  '-50.000.000 VND',
-                  style: TextStyle(
+                  '- ${oCcy.format(total)} VND',
+                  style: const TextStyle(
                       color: Color(0xffFF1313),
                       fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 6,
             ),
-            Row(
+             Row(
               children: [
-                Text(
+                const Text(
                   'Quỹ còn lại:',
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
-                  '50.000.000 VND',
-                  style: TextStyle(
+                  '${oCcy.format(public_Enum.hanmuc - total!)} VND',
+                  style: const TextStyle(
                       color: Color(0xff14D210),
                       fontSize: 15,
                       fontWeight: FontWeight.bold),

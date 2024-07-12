@@ -27,7 +27,7 @@ class _PageTaoCtState extends State<PageTaoCt> {
     MainPage _mainPage = MainPage.TaoChiTieu;
     final moneyCTL = TextEditingController();
     final tenCTCTL = TextEditingController();
-
+    var selectDatetime = DateTime.now();
     String daySelected = (DateTime.now().day.toString() +
         '/' +
         DateTime.now().month.toString() +
@@ -177,6 +177,7 @@ class _PageTaoCtState extends State<PageTaoCt> {
                                           ).then(
                                                 (selectedDate) {
                                               if (selectedDate != null) {
+                                                selectDatetime = selectedDate;
                                                ngayCTL.text = DateFormat('dd-MM-yyyy').format(selectedDate);
                                               }
                                             },
@@ -210,7 +211,7 @@ class _PageTaoCtState extends State<PageTaoCt> {
                             print('==========================TEN =========================='+tenCTCTL.text);
                             final ct = ChiTieu(
                                 ObjectId(),tenCTCTL.text,double.parse(moneyCTL.value.text),
-                                DateTime.now(),widget.dmID
+                                selectDatetime,widget.dmID
                             );
                             await ChitieuController().TaoMoiChiTieu(ct);
                             Navigator.popUntil(context,ModalRoute.withName('/') );

@@ -95,16 +95,24 @@ class _MainHomePageState extends State<MainHomePage> {
             color: const Color(0xff0C7209),
             borderRadius: BorderRadius.circular(70 / 2)),
         child: IconButton(
-          onPressed: () {
+          onPressed: () async {
             // setState(() {
             //   _currentPage = 2;
             //   _mainPage = MainPage.values[_currentPage];
             // });
-            Navigator.push(
+           await Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context)=> const PageChonLoaiCt())
             );
+           setState(() {
+             if(_currentPage == 1){
+               _currentPage = 0;
+             }else{
+               _currentPage = 1;
+             }
+             // print(_currentPage.toString());
+           });
           },
           icon: const Icon(
             Icons.add,
