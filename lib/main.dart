@@ -106,7 +106,7 @@ var categories = {
     DanhMucChitieu(ObjectId(),'Ăn uống',Icons.food_bank_outlined.codePoint.toString(),Colors.white.toHex()),
     DanhMucChitieu(ObjectId(),'Tiền điện',Icons.electric_bolt_outlined.codePoint.toString(),Colors.white.toHex()),
     DanhMucChitieu(ObjectId(),'Du lịch',Icons.travel_explore.codePoint.toString(),Colors.white.toHex()),
-    DanhMucChitieu(ObjectId(),'Chi phí di chuyển',Icons.travel_explore.codePoint.toString(),Colors.white.toHex()),
+    DanhMucChitieu(ObjectId(),'Di chuyển',Icons.travel_explore.codePoint.toString(),Colors.white.toHex()),
 };
 
 await realm.writeAsync(() => realm.addAll(categories));
